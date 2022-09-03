@@ -4,28 +4,27 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>Shared Todos</title>
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
 	<body>
 		<h1>Shared Lists</h1>
-		<!-- <ul>
-    <% lists.forEach( el => { %>
-            <li class='listItem' data-id='<%=el._id%>'>
-                <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.list %></span>
-                <span class='del'> Delete </span>
-            </li>
-    <% }) %>    
-    </ul>
-
-    <h2><%= user.userName %> has <%= left %> lists with things left to do.</h2> -->
+		<ul>
+			<% lists.forEach( el => { %>
+			<li class="listItem" data-id="<%=el._id%>">
+				<a href="/lists/<%=el._id%>" class="list"><%= el.listName %></a>
+				<span class="del"> Delete </span>
+			</li>
+			<% }) %>
+		</ul>
 
 		<form action="/lists/createList" method="POST">
-			<input type="text" placeholder="Enter a new List" name="listItem" />
-			<input type="submit" />
+			<input type="text" placeholder="Enter a new List" name="listName" />
+			<input type="submit" value="Create" />
 		</form>
-
+	</br>
 		<a href="/logout">Logout</a>
+		<a href="/todos">Todos</a>
 
 		<script src="js/lists.js"></script>
 	</body>

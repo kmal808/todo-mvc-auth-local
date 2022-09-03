@@ -6,10 +6,12 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const flash = require('express-flash')
 const logger = require('morgan')
+const path = require('path')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const todoRoutes = require('./routes/todos')
 const listRoutes = require('./routes/lists')
+const sharedListRoutes = require('./routes/sharedLists')
 
 require('dotenv').config({ path: './config/.env' })
 
@@ -20,6 +22,7 @@ connectDB()
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger('dev'))
@@ -42,6 +45,7 @@ app.use(flash())
 app.use('/', mainRoutes)
 app.use('/todos', todoRoutes)
 app.use('/lists', listRoutes)
+app.use('/:id', sharedListRoutes)
 
 app.listen(process.env.PORT, () => {
 	console.log('Server is running, you better catch it!')

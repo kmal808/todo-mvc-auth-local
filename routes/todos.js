@@ -1,11 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const todosController = require('../controllers/todos') 
+const todosController = require('../controllers/todos')
+const listsController = require('../controllers/lists')
 const { ensureAuth } = require('../middleware/auth')
 
 router.get('/', ensureAuth, todosController.getTodos)
 
 router.post('/createTodo', todosController.createTodo)
+
+router.post('/createList', listsController.createList)
 
 router.put('/markComplete', todosController.markComplete)
 

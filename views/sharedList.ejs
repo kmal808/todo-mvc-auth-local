@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Shared Todo</title>
+		<link type="text/css" rel="stylesheet" href="css/style.css" />
+	</head>
+	<body>
+		<h1>Shared Todo</h1>
+		<ul>
+			<% sharedTodos.forEach( el => { %>
+			<li class="sharedTodoItem" data-id="<%=el._id%>">
+				<a href="/lists/<%=el._id%>" class="list"><%= el.sharedTodos %></a>
+				<span class="del"> Delete </span>
+			</li>
+			<% }) %>
+		</ul>
+
+		<form action="/createSharedTodo" method="POST">
+			<input type="text" placeholder="Enter a new Todo" name="sharedTodo" />
+			<input type="submit" value="Create" />
+		</form>
+
+		<h4><%= user.userName %> has <%= left %> tasks to do</h4>
+
+		<h2>Shared Todo Lists</h2>
+
+		<ul>
+			<% lists.forEach( el => { %>
+			<li class="listItem" data-id="<%=el._id%>">
+				<a href="/lists/<%=el._id%>" class="list"><%= el.listName %></a>
+				<span class="del"> Delete </span>
+			</li>
+			<% }) %>
+		</ul>
+
+		<form action="/todos/createList" method="POST">
+			<input type="text" placeholder="Enter A New List" name="listName" />
+			<input type="submit" value="Create" />
+		</form>
+
+		<a href="/logout">Logout</a>
+		<a href="/lists">Shared Lists</a>
+
+		<script src="js/sharedTodos.js"></script>
+	</body>
+</html>

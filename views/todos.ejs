@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shared Todos</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -24,15 +24,15 @@
         <input type="submit">
     </form>
 
-    <h2><%= user.userName %> has <%= left %> things left to do.</h2>
+    <h4><%= user.userName %> has <%= left %> tasks to do</h4>
 
-    <h1>Shared Todo Lists</h1>
+    <h2>Shared Todo Lists</h2>
    
 
    
-    <form action="/lists/createList" method='POST'>
-        <input type="text" placeholder="Enter A New List" name='listItem'>
-        <input type="submit">
+    <form action="/lists/createList" method="POST">
+        <input type="text" placeholder="Enter a new List" name="listName" />
+        <input type="submit" value="Create" />
     </form>
 
 
