@@ -1,16 +1,19 @@
 const List = require('../models/Lists')
 const Todo = require('../models/Todo')
+const SharedTodo = require('../models/SharedTodo')
 
 module.exports = {
 	getLists: async (req, res) => {
 		try {
 			const listItems = await List.find({ userId: req.user.id })
+			const listId = await List.find({ listId: req.params.id })
 			const itemsLeft = await List.countDocuments({
-				userid: req.user.id,
+				listId: req.params.id,
 				completed: false,
 			})
 			res.render('lists.ejs', {
 				lists: listItems,
+				listId: listId,
 				left: itemsLeft,
 				user: req.user,
 			})
@@ -39,7 +42,7 @@ module.exports = {
 
 	createList: async (req, res) => {
 		try {
-			const newList = await List.create({
+			await List.create({
 				listName: req.body.listName,
 				userId: req.user.id,
 				groupId: req.body.groupId,

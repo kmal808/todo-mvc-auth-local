@@ -26,18 +26,16 @@
 
     <h4><%= user.userName %> has <%= left %> tasks to do</h4>
 
-    <h2>Shared Todo Lists</h2>
-   
+    <h3>Shared Todo Lists</h3>
 
-   
     <form action="/lists/createList" method="POST">
-        <input type="text" placeholder="Enter a new List" name="listName" />
-        <input type="submit" value="Create" />
+        <input type="text" placeholder="Create a new List" name="listName" />
+        <a href="/lists"><input type="submit" value="Create" /></a>
     </form>
 
-
+    <a href="/lists">Go To Shared Lists</a>
+    <br>
     <a href="/logout">Logout</a>
-    <a href="/lists">Shared Lists</a>
 
     <script src="js/main.js"></script>
 </body>

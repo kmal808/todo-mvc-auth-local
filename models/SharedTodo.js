@@ -9,9 +9,8 @@ const SharedTodoSchema = new mongoose.Schema({
 		type: Boolean,
 		required: true,
 	},
-	userId: {
+	listId: {
 		type: String,
-		required: true,
 	},
 })
 

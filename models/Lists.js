@@ -9,7 +9,7 @@ const ListSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	groupId: {
+	listId: {
 		type: String,
 	},
 })

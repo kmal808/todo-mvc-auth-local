@@ -11,7 +11,7 @@ const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const todoRoutes = require('./routes/todos')
 const listRoutes = require('./routes/lists')
-const sharedListRoutes = require('./routes/sharedLists')
+const sharedListRoutes = require('./routes/sharedList')
 
 require('dotenv').config({ path: './config/.env' })
 
@@ -22,7 +22,6 @@ connectDB()
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
-app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(logger('dev'))
@@ -45,7 +44,7 @@ app.use(flash())
 app.use('/', mainRoutes)
 app.use('/todos', todoRoutes)
 app.use('/lists', listRoutes)
-app.use('/:id', sharedListRoutes)
+app.use('/listId', sharedListRoutes)
 
 app.listen(process.env.PORT, () => {
 	console.log('Server is running, you better catch it!')

@@ -3,11 +3,12 @@ const Todo = require('../models/Todo')
 const SharedTodo = require('../models/SharedTodo')
 
 module.exports = {
-	getList: async (req, res) => {
+	getSharedList: async (req, res) => {
 		try {
-			const sharedList = await List.findById(req.params.id)
+			const sharedList = await List.findById(req.params._id)
 			const sharedTodoItems = await Todo.find({ listId: req.params.id })
 			const sharedListItems = await List.find({ userId: req.user.id })
+			const list = await List.findById(req.params.id)
 			const itemsLeft = await Todo.countDocuments({
 				listId: req.params.id,
 				completed: false,
@@ -15,12 +16,32 @@ module.exports = {
 			res.render('sharedList.ejs', {
 				user: req.user,
 				listName: sharedList.name,
-				groupId: sharedList.name,
-				sharedTodos: sharedTodoItems,
+				todos: sharedTodoItems,
+				listId: sharedList,
 				left: itemsLeft,
-				lists: sharedListItems,
+				lists: sharedList,
 			})
 		} catch (err) {}
+	},
+
+	getList: async (req, res) => {
+		console.log(req.listName)
+		try {
+			const sharedList = await List.findById(req.params.id)
+			const todoItems = await Todo.find({ userId: req.user.id })
+			const itemsLeft = await Todo.countDocuments({
+				userId: req.user.id,
+				completed: false,
+			})
+			res.render('sharedList.ejs', {
+				todos: todoItems,
+				left: itemsLeft,
+				listId: sharedList,
+				user: req.user,
+			})
+		} catch (err) {
+			console.log(err)
+		}
 	},
 
 	createSharedTodo: async (req, res) => {
@@ -31,7 +52,7 @@ module.exports = {
 				userId: req.user.id,
 			})
 			console.log('Todo has been added!')
-			res.redirect('/:id')
+			res.redirect('/listName')
 		} catch (err) {
 			console.log(err)
 		}
